@@ -1,0 +1,29 @@
+{
+  "name": "fiat-luxia",
+  "version": "1.0.0",
+  "description": "And there was light.",
+  "keywords": [
+    "extension",
+    "firefox",
+    "light"
+  ],
+  "homepage": "https://github.com/dgchrt/fiat-luxia#readme",
+  "bugs": {
+    "url": "https://github.com/dgchrt/fiat-luxia/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgchrt/fiat-luxia.git"
+  },
+  "license": "MIT",
+  "author": "Diogo Eichert",
+  "type": "commonjs",
+  "main": "content.js",
+  "scripts": {
+    "test": "npx biome check --write ./",
+    "zip": "mkdir -p dist && zip -r - content.js icon.png manifest.json popup.html > dist/${PWD##*/}.zip"
+  },
+  "devDependencies": {
+    "biome": "^0.3.3"
+  }
+}
