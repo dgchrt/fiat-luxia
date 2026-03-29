@@ -20,8 +20,17 @@
   "type": "commonjs",
   "main": "content.js",
   "scripts": {
-    "test": "npx biome check --write ./",
-    "zip": "mkdir -p dist && zip -r - content.js icon.png manifest.json popup.html > dist/${PWD##*/}.zip"
+    "lint": "npx biome check --write ./",
+    "test": "npx biome check ./",
+    "build": "npm run build:firefox && npm run build:generic",
+    "prebuild:firefox": "npm run build:manifest-firefox",
+    "prebuild:generic": "npm run build:manifest-generic",
+    "build:firefox": "zip -jr - content.js icon.png popup.html popup.js build/manifest.json > dist/${PWD##*/}-firefox-${npm_package_version}.zip",
+    "build:generic": "zip -jr - content.js icon.png popup.html popup.js build/manifest.json > dist/${PWD##*/}-generic-${npm_package_version}.zip",
+    "build:manifest-firefox": "node build.js firefox",
+    "build:manifest-generic": "node build.js generic",
+    "postbuild:firefox": "rm build/manifest.json",
+    "postbuild:generic": "rm build/manifest.json"
   },
   "devDependencies": {
     "biome": "^0.3.3"

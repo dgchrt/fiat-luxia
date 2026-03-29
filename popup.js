@@ -1,66 +1,52 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const modeRadios = document.querySelectorAll('input[name="mode"]');
-    const statusDiv = document.getElementById('status');
+(function() {
+    var browser = browser || chrome;
 
-    // Function to get the base URL
-    function getBaseUrl(url) {
-        try {
-            const urlObj = new URL(url);
-            return urlObj.origin;
-        } catch (e) {
-            console.error("Invalid URL:", url);
-            return null;
-        }
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const modeRadios = document.querySelectorAll('input[name="mode"]');
+        const statusDiv = document.getElementById('status');
 
-    // Update UI based on current site's status
-    async function updateUI(currentUrl) {
-        const baseUrl = getBaseUrl(currentUrl);
-        if (!baseUrl) {
-            modeRadios.forEach(radio => radio.disabled = true);
-            statusDiv.textContent = "Cannot determine website URL.";
-            return;
+        function getBaseUrl(url) {
+            try { return new URL(url).origin; } catch (e) { return null; }
         }
 
-        const result = await browser.storage.local.get({ siteSettings: {} });
-        const siteSettings = result.siteSettings;
-        const currentSiteMode = siteSettings[baseUrl] || "auto"; // Default to auto
+        browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            const baseUrl = getBaseUrl(tabs[0].url);
+
+            browser.storage.local.get({ siteSettings: {} }, function (result) {
+                const mode = result.siteSettings[baseUrl] || "auto";
+                modeRadios.forEach(r => r.checked = (r.value === mode));
+                statusDiv.textContent = `Mode for ${baseUrl}: ${mode}`;
+            });
+        });
 
         modeRadios.forEach(radio => {
-            radio.checked = (radio.value === currentSiteMode);
-            radio.disabled = false;
+            radio.addEventListener('change', onModeChange);
         });
-        statusDiv.textContent = `Current mode for ${baseUrl}: ${currentSiteMode}`;
-    }
 
-    // Get current tab URL and update UI
-    browser.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-        const currentUrl = tabs[0].url;
-        updateUI(currentUrl);
-    });
-
-    modeRadios.forEach(radio => {
-        radio.addEventListener('change', async function() {
-            const tabs = await browser.tabs.query({ active: true, currentWindow: true });
-            const currentUrl = tabs[0].url;
-            const baseUrl = getBaseUrl(currentUrl);
-
-            if (!baseUrl) {
-                statusDiv.textContent = "Error: Could not get base URL.";
-                return;
-            }
-
+        function onModeChange() {
             const newMode = this.value;
-            const result = await browser.storage.local.get({ siteSettings: {} });
-            let siteSettings = result.siteSettings;
 
-            siteSettings[baseUrl] = newMode;
-            await browser.storage.local.set({ siteSettings: siteSettings });
+            browser.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                saveNewSettings(tabs[0], newMode);
+            });
+        }
 
-            statusDiv.textContent = `Current mode for ${baseUrl}: ${newMode}`;
+        function saveNewSettings(tab, newMode) {
+            const baseUrl = getBaseUrl(tab.url);
 
-            // Send message to content script to update its state
-            browser.tabs.sendMessage(tabs[0].id, { action: "updateMode", mode: newMode });
-        });
+            browser.storage.local.get({ siteSettings: {} }, function (result) {
+                let settings = result.siteSettings;
+                settings[baseUrl] = newMode;
+
+                browser.storage.local.set({ siteSettings: settings }, function () {
+                    notifyContentScript(tab, newMode, baseUrl);
+                });
+            });
+        }
+
+        function notifyContentScript(tab, newMode, baseUrl) {
+            statusDiv.textContent = `Updated ${baseUrl} to ${newMode}`;
+            browser.tabs.sendMessage(tab.id, { action: "updateMode", mode: newMode });
+        }
     });
-});
+})();
