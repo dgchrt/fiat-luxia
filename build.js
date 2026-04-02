@@ -10,7 +10,7 @@ const baseManifest = {
     manifest_version: 3,
     name: "Fiat Luxia",
     version: VERSION,
-    description: "Restores light to the dark corners of the web.",
+    description: "Restores light to the dark corners of the web",
     permissions: ["activeTab", "storage"],
     action: {
         default_popup: "popup.html",
