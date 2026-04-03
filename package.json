@@ -20,8 +20,8 @@
   "type": "commonjs",
   "main": "content.js",
   "scripts": {
-    "lint": "npx biome check --write ./",
-    "test": "npx biome check ./",
+    "lint": "eslint . --fix && prettier --write .",
+    "test": "eslint . && prettier --check .",
     "build": "npm run build:firefox && npm run build:generic",
     "prebuild:firefox": "npm run build:manifest-firefox",
     "prebuild:generic": "npm run build:manifest-generic",
@@ -33,6 +33,10 @@
     "postbuild:generic": "rm build/manifest.json"
   },
   "devDependencies": {
-    "biome": "^0.3.3"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.4.0",
+    "prettier": "^3.8.1"
   }
 }

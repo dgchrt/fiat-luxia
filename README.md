@@ -8,7 +8,7 @@ Fiat Luxia is a browser extension for those who believe the web should be seen, 
 
 Using the divine math of Relative Luminance `(Y=0.2126R+0.7152G+0.0722B)`, this extension detects when a website has surrendered itself to the forces of darkness and performs a smart inversion, restoring a healthy, light-themed sanctuary for your eyes.
 
- "May it be a light to you in dark places, when all other lights go out". - Galadriel
+"May it be a light to you in dark places, when all other lights go out". - Galadriel
 
 # Divine Features
 
