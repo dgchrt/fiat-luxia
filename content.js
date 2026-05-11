@@ -64,7 +64,7 @@
         b = parseInt(rgb[2]);
       const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
-      if (luminance < 100) {
+      if (luminance < 128) {
         console.log('Fiat Luxia: Darkness confirmed at', luminance);
         applyInversionStyle();
       }
