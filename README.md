@@ -2,49 +2,47 @@
 
 # Fiat Luxia
 
-"And the Goddess saw the darkness, that it was void; and the Goddess divided the Light from the darkness. The Goddess called the Light 'good', and the Darkness she called 'eyesore'. And she said, 'Fiat Luxia': and there was light."
+Fiat Luxia is a browser extension designed to enhance web readability by intelligently adjusting website themes. It aims to provide a more comfortable browsing experience by converting dark-themed websites to a lighter aesthetic.
 
-Fiat Luxia is a browser extension for those who believe the web should be seen, not squinted at. While the world descends into the shadow of dark-themed fads, our deity stands guard to restore the natural order of photons the human eye was built to appreciate.
-
-Using the divine math of Relative Luminance `(Y=0.2126R+0.7152G+0.0722B)`, this extension detects when a website has surrendered itself to the forces of darkness and performs a smart inversion, restoring a healthy, light-themed sanctuary for your eyes.
+Using the calculated Relative Luminance `(Y=0.2126R+0.7152G+0.0722B)`, this extension identifies websites with dark backgrounds and applies a smart inversion, transforming them into a light-themed environment.
 
 "May it be a light to you in dark places, when all other lights go out". - Galadriel
 
-# Divine Features
+# Features
 
-- Automatic Discernment: Automatically detects if a site is dark `(Luminance < 100)` before striking.
-- Smart Inversion: Inverts the CSS while shielding images and videos from the "X-ray" effect.
-- Hue Preservation: Rotates the color wheel by 180° to ensure the "vibe" of the site remains, even in the light.
-- Zero Sacrifice: Lightweight and fast. No background processes, just the most pure light.
+- Automatic Detection: Automatically identifies dark-themed websites based on luminance.
+- Smart Inversion: Inverts CSS while preserving the appearance of images and videos.
+- Hue Preservation: Rotates the color wheel by 180° to maintain the site's original color scheme in its inverted form.
+- Lightweight: Operates efficiently without background processes.
 
-# The Sacred Installation
+# Installation
 
-## Official install
+## Official Install
 
-- Firefox: Go to Firefox Browser Add-Ons and look for the [Fiat Luxia](https://addons.mozilla.org/en-US/firefox/addon/fiat-luxia/) extension.
+- Firefox: Find the [Fiat Luxia](https://addons.mozilla.org/en-US/firefox/addon/fiat-luxia/) extension on Firefox Browser Add-Ons.
 
-## Local install
+## Local Install
 
-To summon the Goddess into your browser for testing:
+To install the extension locally for testing:
 
-- Clone the Temple: Download this repository to your local machine.
-- Summon the Power: Run `npm install && npm run build` to find the extension under `dist`.
-- Reveal the Light: Uncompress the file for your browser of choice.
+- Clone the repository: Download this repository to your local machine.
+- Build the extension: Run `npm install && npm run build` to generate the extension files in the `dist` directory.
+- Load the extension: Uncompress the appropriate file for your browser.
 
 ### Firefox
 
-- Open the Gates: In Firefox, navigate to `about:debugging`.
-- Invite the Deity: Click "This Firefox" -> "Load Temporary Add-on...".
-- Select the Blueprint: Choose the manifest.json from the uncompressed folder.
+- Navigate to `about:debugging` in Firefox.
+- Click "This Firefox" -> "Load Temporary Add-on...".
+- Select the `manifest.json` file from the uncompressed folder.
 
-### Generic
+### Generic (Chromium-based browsers)
 
-- Open the Gates: In a Chromium-based browser, navigate to `about:extensions`.
-- Invite the Deity: Click "Load Unpacked".
-- Select the Blueprint: Choose the uncompressed folder.
+- Navigate to `about:extensions` in your Chromium-based browser.
+- Enable "Developer mode".
+- Click "Load Unpacked" and select the uncompressed extension folder.
 
 # License
 
 Distributed under the MIT License. Use it to spread the light among those who need it.
 
-Heed the words of the Goddess: Darkness must not the end be; it is simply a poor design choice disguised as a hipster trend, waiting to be corrected by the truth of light.
+Darkness must not the end be; it is simply a poor design choice disguised as a hipster trend, waiting to be corrected by the truth of light.
